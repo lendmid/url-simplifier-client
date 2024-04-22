@@ -3,8 +3,11 @@ import axios from "axios";
 import Urls from "./components/Urls/Urls";
 import ShortUrl from "./components/ShortUrl/ShortUrl";
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 const Context = createContext({ name: "Default" });
+
+if (import.meta.env.MODE === "development")
+  console.log("import.meta.env: ", import.meta.env);
 
 function App() {
   const contextValue = useMemo(() => ({ name: "Ant Design" }), []);
