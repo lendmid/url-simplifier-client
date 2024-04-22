@@ -13,7 +13,7 @@ interface IUrl {
 const columns = [
   {
     title: "Index",
-    render: (text: string, _: any, index: any) => index + 1,
+    render: ( _: unknown, _2: unknown, index: any) => index + 1,
     width: "10%",
   },
   {
