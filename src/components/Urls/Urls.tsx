@@ -41,6 +41,11 @@ const columns = [
     ),
     ellipsis: true,
   },
+  {
+    title: "Visited",
+    dataIndex: "visited",
+    width: "10%",
+  },
 ];
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
