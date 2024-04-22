@@ -3,7 +3,7 @@ import axios from "axios";
 import Urls from "./components/Urls/Urls";
 import ShortUrl from "./components/ShortUrl/ShortUrl";
 
-axios.defaults.baseURL = process.env.API_URL
+axios.defaults.baseURL = import.meta.env.VITE_API_URL
 const Context = createContext({ name: "Default" });
 
 function App() {
