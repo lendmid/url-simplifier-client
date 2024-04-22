@@ -3,7 +3,7 @@ import axios from "axios";
 import Urls from "./components/Urls/Urls";
 import ShortUrl from "./components/ShortUrl/ShortUrl";
 
-axios.defaults.baseURL = "http://localhost:3001"
+axios.defaults.baseURL = process.env.API_URL
 const Context = createContext({ name: "Default" });
 
 function App() {
