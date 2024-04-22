@@ -12,6 +12,16 @@ interface IUrl {
 }
 const columns = [
   {
+    title: "Index",
+    render: (text: string, _: any, index: any) => index + 1,
+    width: "10%",
+  },
+  {
+    title: "Id",
+    dataIndex: "id",
+    width: "10%",
+  },
+  {
     title: "Short URL",
     dataIndex: "shortUrl",
     render: (text: string) => (
