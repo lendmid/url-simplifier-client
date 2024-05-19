@@ -1,25 +1,25 @@
-import { createContext, useMemo } from "react";
-import axios from "axios";
-import Urls from "./components/Urls/Urls";
+import UrlsTable from "./components/UrlsTable/UrlsTable";
 import ShortUrl from "./components/ShortUrl/ShortUrl";
-
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
-const Context = createContext({ name: "Default" });
+import { notification } from "antd";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 if (import.meta.env.MODE === "development")
   console.log("import.meta.env: ", import.meta.env);
 
+const queryClient = new QueryClient();
+
 function App() {
-  const contextValue = useMemo(() => ({ name: "Ant Design" }), []);
+  const [, contextHolder] = notification.useNotification();
 
   return (
-    <Context.Provider value={contextValue}>
+    <QueryClientProvider client={queryClient}>
+      {contextHolder}
       <main>
         <h1>Url Simplifier</h1>
         <ShortUrl />
-        <Urls />
+        <UrlsTable />
       </main>
-    </Context.Provider>
+    </QueryClientProvider>
   );
 }
 

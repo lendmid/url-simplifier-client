@@ -1,64 +1,47 @@
-import { useState } from "react";
 import classes from "./ShortUrl.module.css";
-import axios from "axios";
-import { Input, Button, notification } from "antd";
-import { useSWRConfig } from "swr";
+import { Input, Form, Button } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
+import { shortUrl } from "../common/requests";
 
 const { TextArea } = Input;
 
-interface AxiosError {
-  response: {
-    data: {
-      message: string;
-    };
-  };
-}
+type FieldType = {
+  longUrl: string;
+};
 
 function ShortUrl() {
-  const { mutate } = useSWRConfig()
+  const queryClient = useQueryClient();
 
-  const [api, contextHolder] = notification.useNotification();
-  const [url, setUrl] = useState<string>("");
-
-  const handleShortUrl = () => {
-    console.log(url);
-    axios({ method: "post", url: "/urls", data: { longUrl: url } })
-      .then((res) => {
-        api.success({
-          message: "The request was resolved successfully!",
-          description: <span>The short url is: <b>{res.data}</b> was copied to your clipboard</span>,
-          duration: 15
-        });
-        navigator.clipboard.writeText(res.data)
-        mutate("/urls")
-      })
-      .catch(({ response }: AxiosError) => {
-        api.error({
-          message: "Something goes wrong",
-          description: `Error during request last urls: ${response?.data?.message}`,
-        });
-      });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.currentTarget.value;
-    setUrl(value.trim());
+  const onFinish = ({ longUrl }: { longUrl: string }) => {
+    shortUrl(longUrl).then(() => {
+      queryClient.invalidateQueries({ queryKey: ["urls"] });
+    });
   };
 
   return (
-    <>
-      {contextHolder}
-      <div className={classes.wrapper}>
-        <TextArea
-          rows={4}
-          placeholder="Enter url to short it"
-          onChange={handleChange}
-        />
-        <Button type="primary" onClick={handleShortUrl}>
-          Short url!
+    <Form
+      className={classes.wrapper}
+      layout="vertical"
+      autoComplete="off"
+      onFinish={onFinish}
+      initialValues={{ longUrl: "" }}
+    >
+      <Form.Item<FieldType>
+        name="longUrl"
+        validateDebounce={300}
+        rules={[
+          { required: true, message: "Please input your URL" },
+          { type: "url", message: "Please enter a valid URL" },
+        ]}
+      >
+        <TextArea rows={5} placeholder="Enter url to short it" allowClear />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" block>
+          Get short url!
         </Button>
-      </div>
-    </>
+      </Form.Item>
+    </Form>
   );
 }
 
