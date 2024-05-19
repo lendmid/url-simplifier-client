@@ -37,7 +37,7 @@ function ShortUrl() {
         <TextArea rows={5} placeholder="Enter url to short it" allowClear />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" block>
+        <Button type="primary" htmlType="submit" block size="large">
           Get short url!
         </Button>
       </Form.Item>
