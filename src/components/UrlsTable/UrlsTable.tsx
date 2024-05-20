@@ -54,8 +54,9 @@ function Urls() {
   });
 
   const dataWithKeys = useMemo(() => {
-    if (!Array.isArray(data?.urls)) return [];
-    return data.urls.map((url: IUrl) => ({ ...url, key: url.id }));
+    return Array.isArray(data?.urls)
+      ? data.urls.map((url: IUrl) => ({ ...url, key: url.id }))
+      : [];
   }, [data?.urls]);
 
   const handleTableChange = (pagination: TablePaginationConfig) => {
