@@ -24,7 +24,9 @@ const columns = [
     dataIndex: "shortUrl",
     render: (text: string) => (
       <Tooltip placement="topLeft" title={text}>
-        <a href={text}>{text}</a>
+        <a href={`//${text}`} target="_blank">
+          {text}
+        </a>
       </Tooltip>
     ),
     ellipsis: true,
@@ -34,7 +36,9 @@ const columns = [
     dataIndex: "longUrl",
     render: (text: string) => (
       <Tooltip placement="topLeft" title={text}>
-        <a href={text}>{text}</a>
+        <a target="_blank" href={text}>
+          {text}
+        </a>
       </Tooltip>
     ),
     ellipsis: true,
@@ -60,7 +64,6 @@ function Urls() {
   }, [data?.urls]);
 
   const handleTableChange = (pagination: TablePaginationConfig) => {
-    console.log(": pagination: ", pagination);
     setPagination(pagination);
   };
 
