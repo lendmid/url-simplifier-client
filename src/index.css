@@ -5,9 +5,23 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+#root {
+  display: grid;
+  align-items: start;
+  justify-content: center;
+  height: max-content;
+  min-height: 100vh;
+  background-color: rgb(240, 240, 240);
+}
+
 main {
   display: grid;
-  place-items: center;
-  background-color: rgb(240, 240, 240);
+  justify-items: center;
   padding: 50px;
+}
+
+@media (max-width: 500px) {
+  main {
+    padding: 30px;
+  }
 }
