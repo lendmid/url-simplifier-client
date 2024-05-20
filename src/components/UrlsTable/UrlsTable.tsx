@@ -71,7 +71,8 @@ function Urls() {
     <>
       <div className={classes.wrapper}>
         <span>
-          Last shorted <b>{data?.pagination.pageSize}</b> URLs:
+          Last shorted <b>{data?.urls.length}</b> URLs of{" "}
+          <b>{data?.pagination.total || 0}</b>:
         </span>
         <Table
           dataSource={dataWithKeys}

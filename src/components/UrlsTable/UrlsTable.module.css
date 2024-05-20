@@ -5,7 +5,4 @@
 
   grid-template-columns: minmax(200px, 100%);
 
-  > span {
-    font-weight: 700;
-  }
 }
