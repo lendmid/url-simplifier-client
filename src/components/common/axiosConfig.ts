@@ -1,6 +1,9 @@
 import { notification } from "antd";
 import axios from "axios";
 
+
+const {VITE_API_URL} = import.meta.env
+
 export interface AxiosError {
   response: {
     data: {
@@ -50,7 +53,7 @@ const errorComposer =
     throw new Error();
   };
 
-const axiosInstance = axios.create({ baseURL: import.meta.env.VITE_API_URL });
+const axiosInstance = axios.create({ baseURL: VITE_API_URL });
 
 axiosInstance.interceptors.response.use(
   (response) => response,
