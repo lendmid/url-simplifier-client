@@ -1,19 +1,20 @@
-# Url Simplifier client
+# Url Simplifier API
 
 Description: `Paste your link, it will be storted!`
 
 ### Check it:
 
-- [Demo](https://url-simplifier-client.vercel.app)
-- [API Swagger](https://url-simplifier-api-production.up.railway.app/api)
+- [Demo](3-n.in/6)
+- [API Swagger](3-n.in/7)
 
 ### Source code
 
-- [Backend, API](https://github.com/lendmid/url-simplifier-api): nest.js, typeorm, typescript, sqlite, base62
-- [Frontend, client](https://github.com/lendmid/url-simplifier-client): react, typescript, antd
+- [Main repo](3-n.in/3)
+- [Backend, API](3-n.in/2): nest.js, typeorm, typescript, sqlite
+- [Frontend, client](3-n.in/4): react, typescript, antd
 
 <br>
 <br>
 <br>
 
-![](https://i.ibb.co/4jkrCHq/Screenshot-2024-05-21-at-0-38-27.png)
+![](https://i.ibb.co/9cr8V0S/Screenshot-2024-05-22-at-1-06-33.png)
