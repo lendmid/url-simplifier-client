@@ -7,6 +7,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getUrls } from "../common/requests";
 import { IUrl } from "../common/types";
 import usePagination from "../common/usePagination";
+import { axiosInstance } from "../common/axiosConfig";
+
+const {baseURL} = axiosInstance.defaults
 
 const columns = [
   {
@@ -24,7 +27,7 @@ const columns = [
     dataIndex: "shortUrl",
     render: (text: string) => (
       <Tooltip placement="topLeft" title={text}>
-        <a href={`//${text}`} target="_blank">
+        <a href={baseURL +"/" + new URL(text).pathname.split("/")[1]} target="_blank">
           {text}
         </a>
       </Tooltip>
