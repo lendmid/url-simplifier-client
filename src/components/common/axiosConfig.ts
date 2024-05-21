@@ -1,8 +1,8 @@
 import { notification } from "antd";
 import axios from "axios";
 
-
-const {VITE_API_URL} = import.meta.env
+const { VITE_API_URL, PROD } = import.meta.env;
+const API_URL = PROD ? "/api" : VITE_API_URL;
 
 export interface AxiosError {
   response: {
@@ -26,7 +26,7 @@ const errorComposer =
     const errorReasons = Array.isArray(backEndErrors)
       ? backEndErrors.join(", ")
       : backEndErrors;
-      
+
     switch (statusCode) {
       case 401:
         notification.error({
@@ -53,14 +53,14 @@ const errorComposer =
     throw new Error();
   };
 
-const axiosInstance = axios.create({ baseURL: VITE_API_URL });
+const axiosInstance = axios.create({ baseURL: API_URL });
 
 axiosInstance.interceptors.response.use(
   (response) => response,
   (err: AxiosError) => {
     err.globalHandler = errorComposer(err);
     return Promise.reject(err);
-  }
+  },
 );
 
 export { axiosInstance };
