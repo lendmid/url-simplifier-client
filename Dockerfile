@@ -1,5 +1,3 @@
-# Don't serve static files via Dockerfile as it leads to losing CDN cache
-
 # Stage 1
 FROM node:18 as client
 WORKDIR /app
