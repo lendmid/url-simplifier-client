@@ -27,7 +27,7 @@ const columns = [
     dataIndex: "shortUrl",
     render: (shortUrl: string, record: IUrl) => (
       <Tooltip placement="topLeft" title={shortUrl}>
-        <a href={baseURL +"/" + record.hash} target="_blank">
+        <a rel='noopener noreferrer' href={baseURL +"/" + record.hash} target="_blank">
           {shortUrl}
         </a>
       </Tooltip>
@@ -39,7 +39,7 @@ const columns = [
     dataIndex: "longUrl",
     render: (text: string) => (
       <Tooltip placement="topLeft" title={text}>
-        <a target="_blank" href={text}>
+        <a rel='noopener noreferrer' target="_blank" href={text}>
           {text}
         </a>
       </Tooltip>
