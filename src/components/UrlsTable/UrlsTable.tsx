@@ -25,10 +25,10 @@ const columns = [
   {
     title: "Short URL",
     dataIndex: "shortUrl",
-    render: (text: string) => (
-      <Tooltip placement="topLeft" title={text}>
-        <a href={baseURL +"/" + new URL(text).pathname.split("/")[1]} target="_blank">
-          {text}
+    render: (shortUrl: string, record: IUrl) => (
+      <Tooltip placement="topLeft" title={shortUrl}>
+        <a href={baseURL +"/" + record.hash} target="_blank">
+          {shortUrl}
         </a>
       </Tooltip>
     ),
