@@ -1,9 +1,11 @@
-# Url Simplifier API
+# Url Simplifier
 
 ### Use it: `Paste your link, it will be storted!`
 
 ### Project description: 
-> Initially, this project was created as a test for a company. Later, I enhanced it for my portfolio, which also helped me become more familiar with technologies such as Nest.js. Although I don't use Nest.js in my current job, I have a strong passion for working with it daily. I incorporated various approaches and technologies that I am eager to use in my future roles
+> - Initially, this project was created as a test for a company
+> - Later, I enhanced it for my portfolio, which also helped me become more familiar with Nest.js. Although I don't use Nest.js in my current job, I have a strong passion for working with it daily
+> - I implemented various approaches and technologies that I am eager to use in my future roles
 
 ### Check it:
 
