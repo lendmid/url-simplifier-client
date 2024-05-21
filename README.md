@@ -1,4 +1,4 @@
-# Url Simplifier
+# Url Simplifier API
 
 ### Use it: `Paste your link, it will be storted!`
 
@@ -9,14 +9,14 @@
 
 ### Check it:
 
-- [Demo](3-n.in/6)
-- [API Swagger](3-n.in/7)
+- [Demo](https://3-n.in/6)
+- [API Swagger](https://3-n.in/7)
 
 ### Source code
 
-- [Main repo](3-n.in/3)
-- [Backend, API](3-n.in/2): nest.js, typeorm, typescript, sqlite
-- [Frontend, client](3-n.in/4): react, typescript, antd
+- [Main repo](https://3-n.in/3)
+- [Backend, API](https://3-n.in/2): nest.js, typeorm, typescript, sqlite
+- [Frontend, client](https://3-n.in/4): react, typescript, antd
 
 <br>
 <br>
