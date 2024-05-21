@@ -12,9 +12,9 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/*",
-    loader: async ({request}) => {
-      const clientUrl = new URL(request.url).pathname
+    path: "/:hash",
+    loader: async ({params}) => {
+      const clientUrl = "/" + params.hash
       const apiUrl = new URL(clientUrl, VITE_API_URL)
       throw redirect(apiUrl.href)
     }
