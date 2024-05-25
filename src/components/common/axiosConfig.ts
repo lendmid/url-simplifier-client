@@ -23,7 +23,7 @@ const errorComposer =
     const statusCode = error.response ? error.response.status : null;
 
     const backEndErrors = error.response.data?.message;
-    const errorReasons = Array.isArray(backEndErrors)
+    const errorReason = Array.isArray(backEndErrors)
       ? backEndErrors.join(", ")
       : backEndErrors;
 
@@ -31,14 +31,14 @@ const errorComposer =
       case 401:
         notification.error({
           message: "Please login to access this resource",
-          description: `Details: ${errorReasons}`,
+          description: `Details: ${errorReason}`,
         });
         throw new Error();
         break;
       case 403:
         notification.error({
           message: "You don't have enough permissions to access the resource",
-          description: `Details: ${errorReasons}`,
+          description: `Details: ${errorReason}`,
         });
         throw new Error();
         break;
@@ -47,7 +47,7 @@ const errorComposer =
           message: clientMessage || error.message,
           description:
             (clientDescription ? `${clientDescription}. ` : "") +
-            `Details: ${errorReasons}`,
+            `Details: ${errorReason}`,
         });
     }
     throw new Error();
