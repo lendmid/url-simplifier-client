@@ -9,14 +9,14 @@
 
 ### Check it:
 
-- [Demo](https://3-n.in/6)
-- [API Swagger](https://3-n.in/7)
+- [Demo](https://3-n.in/2)
+- [API Swagger](https://3-n.in/3)
 
 ### Source code
 
-- [Main repo](https://3-n.in/3)
-- [Backend, API](https://3-n.in/2): nest.js, typeorm, typescript, sqlite
-- [Frontend, client](https://3-n.in/4): react, typescript, antd
+- [Main repo](https://3-n.in/4)
+- [Backend, API](https://3-n.in/5): nest.js, typeorm, typescript, postgres
+- [Frontend, client](https://3-n.in/6): react, typescript, antd
 
 <br>
 
