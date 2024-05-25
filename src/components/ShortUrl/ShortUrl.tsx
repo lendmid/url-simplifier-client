@@ -5,9 +5,9 @@ import { shortUrl } from "../common/requests";
 
 const { TextArea } = Input;
 
-type FieldType = {
+interface IFieldType {
   longUrl: string;
-};
+}
 
 function ShortUrl() {
   const queryClient = useQueryClient();
@@ -32,7 +32,7 @@ function ShortUrl() {
         if (e.key === "Enter") e.preventDefault();
       }}
     >
-      <Form.Item<FieldType>
+      <Form.Item<IFieldType>
         name="longUrl"
         validateDebounce={300}
         rules={[
