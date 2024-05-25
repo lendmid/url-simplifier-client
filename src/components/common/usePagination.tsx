@@ -1,18 +1,20 @@
-import { TablePaginationConfig } from "antd";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { IPagination } from "./types";
 
 const usePagination = () => {
-  const [pagination, setPagination] = useState<TablePaginationConfig>({
-    current: 1,
+  const [pagination, setPagination] = useState<IPagination>({
+    pageNumber: 0,
     pageSize: 5,
     total: 0,
-    showSizeChanger: true,
-    defaultPageSize: 5,
-    pageSizeOptions: ["5", "10", "25"],
-    position: ["bottomCenter"],
   });
-  
-  return { pagination, setPagination };
+
+  const firstRowNumber = useMemo(() => {
+    const { pageNumber, pageSize, total } = pagination;
+    if (total === 0) return 0;
+    return pageNumber * pageSize + 1;
+  }, [pagination]);
+
+  return { pagination, setPagination, firstRowNumber };
 };
 
 export default usePagination;

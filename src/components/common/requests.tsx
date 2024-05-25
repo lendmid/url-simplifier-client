@@ -1,4 +1,4 @@
-import { TablePaginationConfig, notification } from "antd";
+import { notification } from "antd";
 import qs from "qs";
 import { IPagination, IUrl } from "./types";
 import { AxiosError, axiosInstance } from "./axiosConfig";
@@ -10,9 +10,9 @@ interface IGetUrlsResponse {
   pagination: IPagination;
 }
 
-export const getUrls = async (pagination: TablePaginationConfig) => {
-  const { current, pageSize } = pagination;
-  const paginationQS = qs.stringify({ current, pageSize });
+export const getUrls = async (pagination: IPagination) => {
+  const { pageNumber, pageSize } = pagination;
+  const paginationQS = qs.stringify({ pageNumber, pageSize });
   const response = await axiosInstance
     .get<IGetUrlsResponse>(`/urls?${paginationQS}`)
     .catch((err: AxiosError) => {

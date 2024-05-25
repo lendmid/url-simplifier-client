@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { Table, Tooltip } from "antd";
+import { useEffect, useMemo } from "react";
+import { Table, TablePaginationConfig, Tooltip } from "antd";
 
 import classes from "./UrlsTable.module.css";
 import { useQuery } from "@tanstack/react-query";
@@ -57,11 +57,19 @@ const columns = [
 ];
 
 function Urls() {
-  const { pagination, setPagination } = usePagination();
+  const { pagination, setPagination, firstRowNumber } = usePagination();
   const { data, isLoading } = useQuery({
     queryKey: ["urls", pagination],
     queryFn: () => getUrls(pagination),
   });
+
+  useEffect(() => {
+    if (!data?.pagination) return;
+    setPagination((prevPagination) => ({
+      ...prevPagination,
+      total: data.pagination.total,
+    }));
+  }, [data, setPagination]);
 
   const dataWithKeys = useMemo(() => {
     return Array.isArray(data?.urls)
@@ -69,19 +77,41 @@ function Urls() {
       : [];
   }, [data?.urls]);
 
+  const handleTableChange = (pagination: TablePaginationConfig) => {
+    const { current, pageSize, total } = pagination;
+    if (!current || !pageSize || !total) return;
+    setPagination({ pageNumber: current - 1, pageSize, total });
+  };
+
+  const lastRowNumber = useMemo(() => {
+    if (pagination.total === 0) return 0;
+    return (
+      firstRowNumber + Math.min(data?.urls.length || 0, pagination.total) - 1
+    );
+  }, [data?.urls.length, firstRowNumber, pagination.total]);
+
   return (
     <>
       <div className={classes.wrapper}>
         <span>
-          Last shorted <b>{data?.urls.length}</b> URLs of{" "}
-          <b>{data?.pagination.total || 0}</b>:
+          List of
+          <b>{` ${firstRowNumber} - ${lastRowNumber} `}</b>
+          shorted URLs. Total: <b>{pagination.total}</b>:
         </span>
         <Table
           dataSource={dataWithKeys}
           columns={columns}
-          pagination={{ ...pagination, ...data?.pagination }}
+          pagination={{
+            total: pagination.total,
+            pageSize: pagination.pageSize,
+            current: pagination.pageNumber + 1,
+            showSizeChanger: true,
+            defaultPageSize: 5,
+            pageSizeOptions: ["5", "10", "25"],
+            position: ["bottomCenter"],
+          }}
           loading={isLoading}
-          onChange={setPagination}
+          onChange={handleTableChange}
         />
       </div>
     </>
