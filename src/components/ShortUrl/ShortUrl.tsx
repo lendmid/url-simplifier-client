@@ -20,6 +20,11 @@ function ShortUrl() {
     });
   };
 
+  const handlePressEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
+    form.submit();
+  };
+
   return (
     <Form
       className={classes.wrapper}
@@ -28,9 +33,6 @@ function ShortUrl() {
       onFinish={onFinish}
       initialValues={{ longUrl: "" }}
       form={form}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") e.preventDefault();
-      }}
     >
       <Form.Item<IFieldType>
         name="longUrl"
@@ -45,7 +47,7 @@ function ShortUrl() {
           style={{ resize: "none" }}
           placeholder="Enter URL to short it"
           allowClear
-          onPressEnter={() => form.submit()}
+          onPressEnter={handlePressEnter}
         />
       </Form.Item>
       <Form.Item>
