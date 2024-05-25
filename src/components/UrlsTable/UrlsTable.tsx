@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { Table, Tooltip } from "antd";
-import type { TablePaginationConfig } from "antd";
 
 import classes from "./UrlsTable.module.css";
 import { useQuery } from "@tanstack/react-query";
@@ -9,7 +8,7 @@ import { IUrl } from "../common/types";
 import usePagination from "../common/usePagination";
 import { axiosInstance } from "../common/axiosConfig";
 
-const {baseURL} = axiosInstance.defaults
+const { baseURL } = axiosInstance.defaults;
 
 const columns = [
   {
@@ -27,7 +26,11 @@ const columns = [
     dataIndex: "shortUrl",
     render: (shortUrl: string, record: IUrl) => (
       <Tooltip placement="topLeft" title={shortUrl}>
-        <a rel='noopener noreferrer' href={baseURL +"/" + record.hash} target="_blank">
+        <a
+          rel="noopener noreferrer"
+          href={baseURL + "/" + record.hash}
+          target="_blank"
+        >
           {shortUrl}
         </a>
       </Tooltip>
@@ -39,7 +42,7 @@ const columns = [
     dataIndex: "longUrl",
     render: (text: string) => (
       <Tooltip placement="topLeft" title={text}>
-        <a rel='noopener noreferrer' target="_blank" href={text}>
+        <a rel="noopener noreferrer" target="_blank" href={text}>
           {text}
         </a>
       </Tooltip>
@@ -66,10 +69,6 @@ function Urls() {
       : [];
   }, [data?.urls]);
 
-  const handleTableChange = (pagination: TablePaginationConfig) => {
-    setPagination(pagination);
-  };
-
   return (
     <>
       <div className={classes.wrapper}>
@@ -82,7 +81,7 @@ function Urls() {
           columns={columns}
           pagination={{ ...pagination, ...data?.pagination }}
           loading={isLoading}
-          onChange={handleTableChange}
+          onChange={setPagination}
         />
       </div>
     </>

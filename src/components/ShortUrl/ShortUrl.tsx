@@ -11,10 +11,12 @@ type FieldType = {
 
 function ShortUrl() {
   const queryClient = useQueryClient();
+  const [form] = Form.useForm();
 
   const onFinish = ({ longUrl }: { longUrl: string }) => {
     shortUrl(longUrl).then(() => {
       queryClient.invalidateQueries({ queryKey: ["urls"] });
+      form.resetFields();
     });
   };
 
@@ -25,6 +27,10 @@ function ShortUrl() {
       autoComplete="off"
       onFinish={onFinish}
       initialValues={{ longUrl: "" }}
+      form={form}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") e.preventDefault();
+      }}
     >
       <Form.Item<FieldType>
         name="longUrl"
@@ -34,7 +40,13 @@ function ShortUrl() {
           { type: "url", message: "Please enter a valid URL" },
         ]}
       >
-        <TextArea rows={5} placeholder="Enter url to short it" allowClear />
+        <TextArea
+          rows={5}
+          style={{ resize: "none" }}
+          placeholder="Enter url to short it"
+          allowClear
+          onPressEnter={() => form.submit()}
+        />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" block size="large">
