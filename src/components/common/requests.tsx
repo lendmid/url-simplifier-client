@@ -26,18 +26,18 @@ export const shortUrl = async (longUrl: string) => {
   const { data } = await axiosInstance
     .post("/urls", { longUrl })
     .catch((err: AxiosError) => {
-      err.globalHandler("Error while create new url");
+      err.globalHandler("Error while create new URL");
       throw new Error();
     });
 
   if (!data.shortUrl) return;
   notification.success({
-    message: "The url was shorted successfully!",
+    message: "The URL was shorted successfully!",
     description: (
       <span>
-        The short url: <br />
+        The short URL: <br />
         <b>{data.shortUrl}</b> <br />
-        was copied to your clipboard
+        was copied to your clipboard and saved below
       </span>
     ),
     duration: 15,

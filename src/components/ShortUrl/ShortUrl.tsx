@@ -43,14 +43,14 @@ function ShortUrl() {
         <TextArea
           rows={5}
           style={{ resize: "none" }}
-          placeholder="Enter url to short it"
+          placeholder="Enter URL to short it"
           allowClear
           onPressEnter={() => form.submit()}
         />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" block size="large">
-          Get short url!
+          Get short URL!
         </Button>
       </Form.Item>
     </Form>
