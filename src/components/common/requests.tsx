@@ -7,12 +7,11 @@ import { AxiosError, axiosInstance } from "./axiosConfig";
 // Later could be migration to common store solutions like RTK/MobX
 interface IGetUrlsResponse {
   urls: IUrl[];
-  pagination: IPagination;
+  pagination: { total: number } & IPagination;
 }
 
 export const getUrls = async (pagination: IPagination) => {
-  const { pageNumber, pageSize } = pagination;
-  const paginationQS = qs.stringify({ pageNumber, pageSize });
+  const paginationQS = qs.stringify(pagination);
   const response = await axiosInstance
     .get<IGetUrlsResponse>(`/urls?${paginationQS}`)
     .catch((err: AxiosError) => {

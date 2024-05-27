@@ -5,16 +5,33 @@ const usePagination = () => {
   const [pagination, setPagination] = useState<IPagination>({
     pageNumber: 0,
     pageSize: 5,
+  });
+
+  const [dataSize, setDataSize] = useState({
     total: 0,
+    portion: 0,
   });
 
   const firstRowNumber = useMemo(() => {
-    const { pageNumber, pageSize, total } = pagination;
-    if (total === 0) return 0;
+    const { pageNumber, pageSize } = pagination;
+    if (dataSize.total === 0) return 0;
     return pageNumber * pageSize + 1;
-  }, [pagination]);
+  }, [dataSize.total, pagination]);
 
-  return { pagination, setPagination, firstRowNumber };
+  const lastRowNumber = useMemo(() => {
+    if (dataSize.total === 0) return 0;
+    const calculatedLastRowNumber = firstRowNumber + pagination.pageSize - 1;
+    return Math.min(calculatedLastRowNumber, dataSize.total);
+  }, [dataSize.total, firstRowNumber, pagination.pageSize]);
+
+  return {
+    pagination,
+    dataSize,
+    setPagination,
+    setDataSize,
+    firstRowNumber,
+    lastRowNumber,
+  };
 };
 
 export default usePagination;

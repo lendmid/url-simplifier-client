@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { Table, TablePaginationConfig, Tooltip } from "antd";
 
 import classes from "./UrlsTable.module.css";
@@ -57,19 +57,24 @@ const columns = [
 ];
 
 function Urls() {
-  const { pagination, setPagination, firstRowNumber } = usePagination();
+  const {
+    pagination,
+    dataSize,
+    setDataSize,
+    setPagination,
+    firstRowNumber,
+    lastRowNumber,
+  } = usePagination();
+
   const { data, isLoading } = useQuery({
     queryKey: ["urls", pagination],
-    queryFn: () => getUrls(pagination),
+    queryFn: async () => {
+      const data = await getUrls(pagination);
+      const { pagination: resPagination, urls } = data;
+      setDataSize({ total: resPagination?.total, portion: urls?.length || 0 });
+      return data;
+    },
   });
-
-  useEffect(() => {
-    if (!data?.pagination) return;
-    setPagination((prevPagination) => ({
-      ...prevPagination,
-      total: data.pagination.total,
-    }));
-  }, [data, setPagination]);
 
   const dataWithKeys = useMemo(() => {
     return Array.isArray(data?.urls)
@@ -78,17 +83,10 @@ function Urls() {
   }, [data?.urls]);
 
   const handleTableChange = (pagination: TablePaginationConfig) => {
-    const { current, pageSize, total } = pagination;
-    if (!current || !pageSize || !total) return;
-    setPagination({ pageNumber: current - 1, pageSize, total });
+    const { current, pageSize } = pagination;
+    if (!current || !pageSize) return;
+    setPagination({ pageNumber: current - 1, pageSize });
   };
-
-  const lastRowNumber = useMemo(() => {
-    if (pagination.total === 0) return 0;
-    return (
-      firstRowNumber + Math.min(data?.urls.length || 0, pagination.total) - 1
-    );
-  }, [data?.urls.length, firstRowNumber, pagination.total]);
 
   return (
     <>
@@ -96,13 +94,13 @@ function Urls() {
         <span>
           List of
           <b>{` ${firstRowNumber} - ${lastRowNumber} `}</b>
-          shorted URLs. Total: <b>{pagination.total}</b>:
+          shorted URLs. Total: <b>{dataSize.total}</b>:
         </span>
         <Table
           dataSource={dataWithKeys}
           columns={columns}
           pagination={{
-            total: pagination.total,
+            total: dataSize.total,
             pageSize: pagination.pageSize,
             current: pagination.pageNumber + 1,
             showSizeChanger: true,
