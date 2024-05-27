@@ -49,6 +49,7 @@ function ShortUrl() {
       <Form.Item<IFieldType>
         name="longUrl"
         validateDebounce={300}
+        normalize={(value) => value.trim()}
         rules={[
           { required: true, message: "Please input your URL" },
           { type: "url", message: "Please enter a valid URL" },
