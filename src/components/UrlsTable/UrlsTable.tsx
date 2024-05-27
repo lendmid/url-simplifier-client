@@ -10,21 +10,29 @@ import { axiosInstance } from "../common/axiosConfig";
 
 const { baseURL } = axiosInstance.defaults;
 
+const isDesktop = window.innerWidth >= 100;
+const tablePaginationConfig: TablePaginationConfig = {
+  showSizeChanger: true,
+  defaultPageSize: 5,
+  pageSizeOptions: ["5", "10", "25"],
+  position: ["bottomCenter"],
+};
+
 const columns = [
   {
     title: "Row №",
     render: (_: unknown, _2: unknown, index: number) => index + 1,
-    width: "calc(min-content, 100px)",
+    width: "7%",
   },
   {
     title: "URL id",
     dataIndex: "id",
-    width: "calc(min-content, 80px)",
+    width: "7%",
   },
   {
     title: "Short URL",
     dataIndex: "shortUrl",
-    width: "calc(max-content, 200px)",
+    width: "15%",
     render: (shortUrl: string, record: IUrl) => (
       <Tooltip placement="topLeft" title={shortUrl}>
         <a
@@ -40,13 +48,14 @@ const columns = [
   },
   {
     title: "Long URL",
+    width: "40%",
     dataIndex: "longUrl",
     ellipsis: true,
     render: (text: string) => (
       <Tooltip
-        placement="topLeft"
         title={text}
-        overlayStyle={{ maxWidth: "600px" }}
+        placement={isDesktop ? "topLeft" : "top"}
+        overlayStyle={{ maxWidth: isDesktop ? "600px" : "90%" }}
       >
         <a rel="noopener noreferrer" target="_blank" href={text}>
           {text}
@@ -57,7 +66,7 @@ const columns = [
   {
     title: "URL Visited",
     dataIndex: "visited",
-    width: "calc(min-content, 120px)",
+    width: "10%",
   },
 ];
 
@@ -109,13 +118,12 @@ function Urls() {
             total: dataSize.total,
             pageSize: pagination.pageSize,
             current: pagination.pageNumber + 1,
-            showSizeChanger: true,
-            defaultPageSize: 5,
-            pageSizeOptions: ["5", "10", "25"],
-            position: ["bottomCenter"],
+            ...tablePaginationConfig,
           }}
+          scroll={{ x: 690 }}
           loading={isLoading}
           onChange={handleTableChange}
+          sticky
         />
       </div>
     </>
