@@ -12,12 +12,12 @@ const { baseURL } = axiosInstance.defaults;
 
 const columns = [
   {
-    title: "Index",
+    title: "Row №",
     render: (_: unknown, _2: unknown, index: number) => index + 1,
-    width: "80px",
+    width: "100px",
   },
   {
-    title: "Id",
+    title: "URL id",
     dataIndex: "id",
     width: "80px",
   },
@@ -41,6 +41,7 @@ const columns = [
   {
     title: "Long URL",
     dataIndex: "longUrl",
+    ellipsis: true,
     render: (text: string) => (
       <Tooltip
         placement="topLeft"
@@ -52,12 +53,12 @@ const columns = [
         </a>
       </Tooltip>
     ),
-    ellipsis: true,
   },
   {
-    title: "Visited",
+    title: "URL Visited",
     dataIndex: "visited",
-    width: "100px",
+    align: "center",
+    width: "120px",
   },
 ];
 
