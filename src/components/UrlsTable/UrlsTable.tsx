@@ -41,7 +41,11 @@ const columns = [
     title: "Long URL",
     dataIndex: "longUrl",
     render: (text: string) => (
-      <Tooltip placement="topLeft" title={text}>
+      <Tooltip
+        placement="topLeft"
+        title={text}
+        overlayStyle={{ maxWidth: "600px" }}
+      >
         <a rel="noopener noreferrer" target="_blank" href={text}>
           {text}
         </a>
