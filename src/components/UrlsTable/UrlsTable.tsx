@@ -57,7 +57,6 @@ const columns = [
   {
     title: "URL Visited",
     dataIndex: "visited",
-    align: "center",
     width: "120px",
   },
 ];
