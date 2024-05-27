@@ -70,6 +70,7 @@ function Urls() {
     queryKey: ["urls", pagination],
     queryFn: async () => {
       const data = await getUrls(pagination);
+      if (!data) return;
       const { pagination: resPagination, urls } = data;
       setDataSize({ total: resPagination?.total, portion: urls?.length || 0 });
       return data;

@@ -3,8 +3,7 @@ import qs from "qs";
 import { IPagination, IUrl } from "./types";
 import { AxiosError, axiosInstance } from "./axiosConfig";
 
-// keep business logic separately from UI
-// Later could be migration to common store solutions like RTK/MobX
+// Layer to communicate with backend
 interface IGetUrlsResponse {
   urls: IUrl[];
   pagination: { total: number } & IPagination;
@@ -16,30 +15,28 @@ export const getUrls = async (pagination: IPagination) => {
     .get<IGetUrlsResponse>(`/urls?${paginationQS}`)
     .catch((err: AxiosError) => {
       err.globalHandler("Error while request urls");
-      throw new Error();
     });
-  return response.data;
+  if (response) return response.data;
 };
 
 export const shortUrl = async (longUrl: string) => {
-  const { data } = await axiosInstance
+  const response = await axiosInstance
     .post("/urls", { longUrl })
     .catch((err: AxiosError) => {
-      err.globalHandler("Error while create new URL");
-      throw new Error();
+      err.globalHandler("Error while create a new URL");
     });
 
-  if (!data.shortUrl) return;
+  if (!response?.data.shortUrl) return;
   notification.success({
     message: "The URL was shorted successfully!",
     description: (
       <span>
         The short URL: <br />
-        <b>{data.shortUrl}</b> <br />
+        <b>{response.data.shortUrl}</b> <br />
         was copied to your clipboard and saved below
       </span>
     ),
     duration: 15,
   });
-  navigator.clipboard.writeText(data.shortUrl);
+  navigator.clipboard.writeText(response.data.shortUrl);
 };

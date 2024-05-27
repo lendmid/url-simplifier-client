@@ -16,7 +16,7 @@ export interface AxiosError {
   globalHandler(clientDescription?: string, clientMessage?: string): Error;
 }
 
-// Global error handler with opportunity to show error on local level
+// Global error handler with possibility to modify an error on local level
 const errorComposer =
   (error: AxiosError) =>
   (clientDescription: string = "", clientMessage: string = "") => {
@@ -33,14 +33,12 @@ const errorComposer =
           message: "Please login to access this resource",
           description: `Details: ${errorReason}`,
         });
-        throw new Error();
         break;
       case 403:
         notification.error({
           message: "You don't have enough permissions to access the resource",
           description: `Details: ${errorReason}`,
         });
-        throw new Error();
         break;
       default:
         notification.error({
@@ -50,7 +48,7 @@ const errorComposer =
             `Details: ${errorReason}`,
         });
     }
-    throw new Error();
+    throw new Error(error.message);
   };
 
 const axiosInstance = axios.create({ baseURL: API_URL });
