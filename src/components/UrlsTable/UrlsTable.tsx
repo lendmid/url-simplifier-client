@@ -14,16 +14,17 @@ const columns = [
   {
     title: "Index",
     render: (_: unknown, _2: unknown, index: number) => index + 1,
-    width: "10%",
+    width: "80px",
   },
   {
     title: "Id",
     dataIndex: "id",
-    width: "10%",
+    width: "80px",
   },
   {
     title: "Short URL",
     dataIndex: "shortUrl",
+    width: "200px",
     render: (shortUrl: string, record: IUrl) => (
       <Tooltip placement="topLeft" title={shortUrl}>
         <a
@@ -56,7 +57,7 @@ const columns = [
   {
     title: "Visited",
     dataIndex: "visited",
-    width: "10%",
+    width: "100px",
   },
 ];
 
