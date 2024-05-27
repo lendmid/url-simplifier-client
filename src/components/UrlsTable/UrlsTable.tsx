@@ -11,6 +11,7 @@ import { axiosInstance } from "../common/axiosConfig";
 const { baseURL } = axiosInstance.defaults;
 
 const isDesktop = window.innerWidth >= 100;
+console.log("isDesktop: ", isDesktop);
 const tablePaginationConfig: TablePaginationConfig = {
   showSizeChanger: true,
   defaultPageSize: 5,
@@ -54,8 +55,12 @@ const columns = [
     render: (text: string) => (
       <Tooltip
         title={text}
-        placement={isDesktop ? "topLeft" : "top"}
-        overlayStyle={{ maxWidth: isDesktop ? "600px" : "90%" }}
+        destroyTooltipOnHide
+        placement={window.innerWidth >= 1000 ? "topLeft" : undefined}
+        overlayStyle={{
+          maxWidth:
+            window.innerWidth >= 550 ? "600px" : `${window.innerWidth - 150}px`,
+        }}
       >
         <a rel="noopener noreferrer" target="_blank" href={text}>
           {text}
