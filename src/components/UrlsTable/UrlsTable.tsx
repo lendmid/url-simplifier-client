@@ -14,17 +14,17 @@ const columns = [
   {
     title: "Row №",
     render: (_: unknown, _2: unknown, index: number) => index + 1,
-    width: "100px",
+    width: "calc(min-content, 100px)",
   },
   {
     title: "URL id",
     dataIndex: "id",
-    width: "80px",
+    width: "calc(min-content, 80px)",
   },
   {
     title: "Short URL",
     dataIndex: "shortUrl",
-    width: "200px",
+    width: "calc(max-content, 200px)",
     render: (shortUrl: string, record: IUrl) => (
       <Tooltip placement="topLeft" title={shortUrl}>
         <a
@@ -57,7 +57,7 @@ const columns = [
   {
     title: "URL Visited",
     dataIndex: "visited",
-    width: "120px",
+    width: "calc(min-content, 120px)",
   },
 ];
 
