@@ -20,7 +20,7 @@ function App() {
 
       <Route exact path="/">
         <main>
-          <h1>Url Simplifier</h1>
+          <h1>URL Simplifier</h1>
           <ShortUrl />
           <UrlsTable />
         </main>
