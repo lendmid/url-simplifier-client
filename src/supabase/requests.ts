@@ -11,10 +11,10 @@ export const getAllUrls = async ({ pageSize, pageNumber }: IPagination) => {
     const { data, error, count } = await supabase
       .from('urls')
       .select('*', { count: 'exact'})
+      .eq('isArchived', false)
       .range(from, from + pageSize - 1)
       .order('createdAt', { ascending: false })
       .select('*, visits:visits(*)');
-
 
     if (error) throw error
     return { data, count}
