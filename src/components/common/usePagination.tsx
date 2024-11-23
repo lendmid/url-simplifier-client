@@ -7,10 +7,7 @@ const usePagination = () => {
     pageSize: 5,
   });
 
-  const [dataSize, setDataSize] = useState({
-    total: 0,
-    portion: 0,
-  });
+  const [dataSize, setDataSize] = useState({ total: 0, portion: 0 });
 
   const firstRowNumber = useMemo(() => {
     const { pageNumber, pageSize } = pagination;

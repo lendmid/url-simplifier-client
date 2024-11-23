@@ -9,6 +9,8 @@
 
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
+    if (document.location.hostname !== 'localhost') {
+    console.log("document.location.hostname: ", document.location.hostname)
     (function (m, e, t, r, i, k, a) {
       m[i] =
         m[i] ||
@@ -39,7 +41,8 @@
       trackLinks: true,
       accurateTrackBounce: true,
       webvisor: true,
-    });
+    });  
+  }
   </script>
   <!-- /Yandex.Metrika counter -->
 </head>

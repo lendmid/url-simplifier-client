@@ -1,9 +1,8 @@
 import classes from "./ShortUrl.module.css";
 import { Input, Form, Button, InputRef } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-import { shortUrl } from "../common/requests";
 import { useEffect, useRef } from "react";
-
+import { getShortUrl } from "../../supabase/requests";
 const { TextArea } = Input;
 
 interface IFieldType {
@@ -27,7 +26,7 @@ function ShortUrl() {
   }, []);
 
   const onFinish = ({ longUrl }: { longUrl: string }) => {
-    shortUrl(longUrl).then(() => {
+    getShortUrl(longUrl).then(() => {
       queryClient.invalidateQueries({ queryKey: ["urls"] });
     });
   };
