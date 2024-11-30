@@ -21,14 +21,17 @@ const usePagination = () => {
     return Math.min(calculatedLastRowNumber, dataSize.total);
   }, [dataSize.total, firstRowNumber, pagination.pageSize]);
 
-  return {
-    pagination,
-    dataSize,
-    setPagination,
-    setDataSize,
-    firstRowNumber,
-    lastRowNumber,
-  };
+  return useMemo(
+    () => ({
+      pagination,
+      dataSize,
+      setPagination,
+      setDataSize,
+      firstRowNumber,
+      lastRowNumber,
+    }),
+    [pagination, dataSize, firstRowNumber, lastRowNumber]
+  );
 };
 
 export default usePagination;

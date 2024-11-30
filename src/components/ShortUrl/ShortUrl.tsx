@@ -1,7 +1,7 @@
 import classes from "./ShortUrl.module.css";
 import { Input, Form, Button, InputRef } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { getShortUrl } from "../../supabase/requests";
 const { TextArea } = Input;
 
@@ -9,7 +9,7 @@ interface IFieldType {
   longUrl: string;
 }
 
-function ShortUrl() {
+const ShortUrl = memo(() => {
   const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const inputRef = useRef<InputRef>(null);
@@ -70,6 +70,6 @@ function ShortUrl() {
       </Form.Item>
     </Form>
   );
-}
+})
 
 export default ShortUrl;
